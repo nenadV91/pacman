@@ -4,6 +4,14 @@ class Pacman extends Entity {
 		this.color = '#FFFF01';
 		this.points = 0;
 		this.lives = 3;
+		this.hasPower = false;
+		this.powerUsed = false;
+
+		this.normalSize = this.size;
+		this.normalSpeed = this.speed;
+
+		this.powerSize = this.normalSize + 3;
+		this.powerSpeed = this.normalSpeed + 1;
 
 		this.eat(this.cell)
 	}
@@ -15,10 +23,30 @@ class Pacman extends Entity {
 
 	eat(cell) {
 		if(!cell.isVisited) {
-			this.points++;
-			this.grid.coins--;
 			cell.isVisited = true;
+
+			if(cell.type == 'coin') {
+				this.points++;
+				this.grid.coins--;
+				
+			}
+
+			if(cell.type == 'power') {
+				this.hasPower = true;
+				this.powerUsed = false;
+			}
 		}
+	}
+
+	powerUp() {
+		this.speed = this.powerSpeed;
+		this.size = this.powerSize;
+	}
+
+	powerDown() {
+		console.log(this.size)
+		this.speed = this.normalSpeed;
+		this.size = this.normalSize;
 	}
 
 	move() {

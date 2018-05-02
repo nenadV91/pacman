@@ -18,9 +18,8 @@ class Game {
 	}
 
 	addPacman(row, column) {
-		this.pacman = new Pacman(this.stage, row, column);
-		this.pacman.size = this.config.pacman.size;
-		this.pacman.speed = this.config.pacman.speed;
+		let {size, speed} = this.config.pacman;
+		this.pacman = new Pacman(this.stage, row, column, size, speed);
 	}
 
 	stop(message) {
@@ -82,8 +81,7 @@ class Game {
 		fill(255);
 		noStroke();
 		text('Points: ' + this.pacman.points, x, y);
-		text('Lives: ' + this.pacman.lives, x, y + 20)
-		text('Level: ' + this.level, x, y + 40)
-
+		text('Lives: ' + this.pacman.lives, x, y + 20);
+		text('Level: ' + this.level, x, y + 40);
 	}
 }

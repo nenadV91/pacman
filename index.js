@@ -30,7 +30,7 @@ function setup() {
 function draw() {
 	background(color(11, 15, 26));
 	game.stage.show();
-	game.showStats(540, 20);
+	game.showStats(560, 20);
 
 	if(game.isCompleted) {
 		game.stop('Completed.');
@@ -41,6 +41,23 @@ function draw() {
 	game.pacman.update()
 	game.pacman.move();
 
+	if(game.pacman.hasPower && !game.pacman.powerUsed) {
+		if(this.powerTimeout) clearTimeout(this.powerTimeout);
+
+		game.pacman.powerUsed = true;
+		game.pacman.powerUp();
+
+		this.powerTimeout = setTimeout(() => {
+			game.pacman.hasPower = false;
+			game.pacman.powerUsed = false;
+			game.pacman.powerDown();
+			game.ghosts.forEach(ghost => ghost.normal());
+			clearTimeout(this.powerTimeout);
+		}, 10000);
+
+		game.ghosts.forEach(ghost => ghost.flee());
+	}
+
 	game.ghosts.forEach(ghost => {
 		ghost.show();
 		ghost.update();
@@ -50,12 +67,18 @@ function draw() {
 		
 
 		if(ghost.catch(game.pacman)) {
-			if(game.pacman.lives-- == 0) {
-				game.stop('Game over.')
-				game.resetGame();
+			if(ghost.isFleeing) {
+				game.pacman.points += 20;
+				game.resetUnit(ghost);
+				ghost.normal();
 			} else {
-				game.stop('You died.')
-				game.resetLevel();
+				if(game.pacman.lives-- == 0) {
+					game.stop('Game over.');
+					game.resetGame();
+				} else {
+					game.stop('You died.');
+					game.resetLevel();
+				}
 			}
 		}
 	})

@@ -1,9 +1,11 @@
 class Ghost extends Entity {
 	constructor(...props) {
 		super(...props);
-		this.size = 15;
-		this.color = '#ED2600';
-		this.speed = 2;
+		this.normalColor = '#ED2600'
+		this.fleeColor = 'rgb(33, 32, 255)';
+		this.color = this.normalColor;
+
+		this.isFleeing = false;
 		this.directionSteps = 15;
 		this.directionPacman = 10;
 		this.directions = ['up', 'down', 'right', 'left'];
@@ -12,6 +14,16 @@ class Ghost extends Entity {
 	show() {
 		fill(this.color);
 		ellipse(this.position.x, this.position.y, this.size, this.size)
+	}
+
+	flee() {
+		this.color = this.fleeColor;
+		this.isFleeing = true;
+	}
+
+	normal() {
+		this.color = this.normalColor;
+		this.isFleeing = false;
 	}
 
 	catch(target) {

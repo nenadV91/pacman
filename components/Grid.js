@@ -22,7 +22,7 @@ class Grid {
 				const x = j * this.cellSize;
 				const y = i * this.cellSize;
 				
-				if(value == '-' || value == 'G') {
+				if(value == '-') {
 					const coin = new Coin(x, y, i, j, 'coin', this.cellSize);
 					this.coins++;
 					this.grid.push(coin);
@@ -34,15 +34,14 @@ class Grid {
 					this.grid.push(brick);
 				}
 
-				if(value == '*') {
+				if(value == '*' || value == 'G') {
 					const emptyCell = new Cell(x, y, i, j, 'empty', this.cellSize);
 					this.grid.push(emptyCell)
 				}
 
 				if(value == 'G') {
-					let ghost = new Ghost(this, i, j);
-					ghost.size = this.config.ghost.size;
-					ghost.speed = this.config.ghost.speed;
+					let {size, speed} = this.config.ghost;
+					let ghost = new Ghost(this, i, j, size, speed);
 					game.ghosts.push(ghost);
 				}
 
