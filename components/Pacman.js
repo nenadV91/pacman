@@ -1,11 +1,11 @@
 class Pacman extends Entity {
 	constructor(...props) {
 		super(...props);
-		this.size = 15;
 		this.color = '#FFFF01';
-		this.eat(this.cell)
 		this.points = 0;
 		this.lives = 3;
+
+		this.eat(this.cell)
 	}
 
 	show() {

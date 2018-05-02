@@ -1,9 +1,10 @@
 class Grid {
-	constructor(pattern) {
-		this.pattern = pattern;
-		this.rows = pattern.length;
-		this.columns = pattern[0].length;
-		this.cellSize = 30;
+	constructor(config) {
+		this.config = config;
+		this.pattern = config.stage;
+		this.rows = this.pattern.length;
+		this.columns = this.pattern[0].length;
+		this.cellSize = config.cellSize;
 
 		this.grid = [];
 		this.coins = 0;
@@ -33,8 +34,22 @@ class Grid {
 					this.grid.push(brick);
 				}
 
+				if(value == '*') {
+					const emptyCell = new Cell(x, y, i, j, 'empty', this.cellSize);
+					this.grid.push(emptyCell)
+				}
+
 				if(value == 'G') {
-					game.ghosts.push(new Ghost(this, i, j));
+					let ghost = new Ghost(this, i, j);
+					ghost.size = this.config.ghost.size;
+					ghost.speed = this.config.ghost.speed;
+					game.ghosts.push(ghost);
+				}
+
+				if(value == 'P') {
+					const power = new Power(x, y, i, j, 'power', this.cellSize);
+					this.powers++;
+					this.grid.push(power);
 				}
 			}
 		}

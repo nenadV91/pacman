@@ -1,7 +1,7 @@
-class Coin extends Cell {
+class Power extends Cell {
 	constructor(...props) {
 		super(...props);
-		this.isVisited = false;
+		this.isVisited = false
 	}
 
 	show() {
@@ -9,8 +9,8 @@ class Coin extends Cell {
 		this.showBorders()
 
 		if(!this.isVisited) {
-			fill('#E9E9E9');
-			ellipse(this.center.x, this.center.y, 4, 4);
+			fill('#FFB8AD');
+			ellipse(this.center.x, this.center.y, 10, 10);
 		}
 	}
 }

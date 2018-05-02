@@ -1,7 +1,7 @@
 class Ghost extends Entity {
 	constructor(...props) {
 		super(...props);
-		this.size = 25;
+		this.size = 15;
 		this.color = '#ED2600';
 		this.speed = 2;
 		this.directionSteps = 15;

@@ -1,11 +1,28 @@
 let canvas;
 let game;
+let config = {
+	cellSize: 20,
+	pacman: {
+		size: 12,
+		speed: 3
+	},
+	ghost: {
+		size: 20,
+		speed: 2.5
+	},
+	canvas: {
+		width: 650,
+		height: 580
+	},
+	stage: stage
+}
 
 
 function setup() {
-	canvas = createCanvas(800, 510);
-	game = new Game();
-	game.addStage(stage_1);
+	frameRate(40);
+	canvas = createCanvas(config.canvas.width, config.canvas.height);
+	game = new Game(config);
+	game.addStage();
 	game.addPacman(1, 5);
 }
 
@@ -13,11 +30,11 @@ function setup() {
 function draw() {
 	background(color(11, 15, 26));
 	game.stage.show();
-	game.showStats(650, 20);
+	game.showStats(540, 20);
 
 	if(game.isCompleted) {
 		game.stop('Completed.');
-		game.resetGame();
+		game.nextLevel();
 	}
 
 	game.pacman.show();
@@ -38,9 +55,7 @@ function draw() {
 				game.resetGame();
 			} else {
 				game.stop('You died.')
-				game.resetPacman();
-				game.resetGhosts();
-				loop();
+				game.resetLevel();
 			}
 		}
 	})

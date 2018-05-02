@@ -1,5 +1,5 @@
 class Cell {
-	constructor(x, y, row, column, type, size) {
+	constructor(x, y, row, column, type, size = 20) {
 		this.type = type;
 		this.size = size;
 
@@ -16,8 +16,10 @@ class Cell {
 	showBorders() {
 		noFill()
 		rectMode(RADIUS)
-		stroke(color(255, 255, 255, 10));
+		stroke(color(255, 255, 255, 5));
 		rect(this.x, this.y, this.size, this.size)
 	}
+
+	show() {}
 }
 

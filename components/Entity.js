@@ -1,8 +1,10 @@
 class Entity {
-	constructor(grid, row, column) {
+	constructor(grid, row, column, size = 20, speed = 3) {
 		this.grid = grid;
 		this.row = row;
 		this.column = column;
+		this.size = size;
+		this.speed = speed;
 
 		this.cellIndex = this.getIndex(this.row, this.column);
 		this.cell = this.grid.grid[this.cellIndex];
@@ -12,7 +14,6 @@ class Entity {
 		this.direction = null;
 		this.isMoving = false;
 		this.target = null;
-		this.speed = 4;
 
 		this.position = new p5.Vector(this.x, this.y);
 		this.velocity = new p5.Vector(0, 0);

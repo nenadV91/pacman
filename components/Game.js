@@ -1,7 +1,9 @@
 class Game {
-	constructor() {
+	constructor(config) {
+		this.config = config;
 		this.stage = null;
 		this.pacman = null;
+		this.level = 1;
 		this.ghosts = [];
 		this.directions = ['up', 'down', 'left', 'right'];
 	}
@@ -10,13 +12,15 @@ class Game {
 		return this.stage.completed;
 	}
 
-	addStage(stage) {
-		this.stage = new Grid(stage);
+	addStage() {
+		this.stage = new Grid(this.config);
 		this.stage.init(this);
 	}
 
 	addPacman(row, column) {
 		this.pacman = new Pacman(this.stage, row, column);
+		this.pacman.size = this.config.pacman.size;
+		this.pacman.speed = this.config.pacman.speed;
 	}
 
 	stop(message) {
@@ -24,30 +28,54 @@ class Game {
 		alert(message);
 	}
 
-	resetGame() {
-		this.ghosts = [];
-		this.addStage(this.stage.pattern)
-		this.addPacman(this.pacman.startRow, this.pacman.startColumn)
-		loop();
-	}
-
-	resetUnit(unit) {
-		unit.row = unit.startRow;
-		unit.column = unit.startColumn;
-		unit.direction = null;
-		unit.target = null;
-		unit.isMoving = false;
-		unit.cell = unit.startCell;
-		unit.position = new p5.Vector(unit.cell.center.x, unit.cell.center.y);
-		unit.velocity.mult(0)
-	}
-
 	resetGhosts() {
 		this.ghosts.forEach(ghost => game.resetUnit(ghost));
 	}
 
 	resetPacman() {
-		this.resetUnit(this.pacman)
+		this.addPacman(this.pacman.startRow, this.pacman.startColumn)
+	}
+
+	resetPacmanPosition() {
+		this.resetUnit(this.pacman);
+	}
+
+	resetStage() {
+		this.addStage(this.stage.pattern)
+	}
+
+	resetUnit(unit) {
+		unit.row = unit.startRow;
+		unit.column = unit.startColumn;
+		unit.cell = unit.startCell;
+		unit.target = null;
+		unit.isMoving = null;
+		this.direction = null;
+		unit.position = new p5.Vector(unit.cell.center.x, unit.cell.center.y);
+		unit.velocity.mult(0)
+		unit.grid = this.stage;
+	}
+
+	resetGame() {
+		this.ghosts = [];
+		game.level = 1;
+		this.resetStage();
+		this.resetPacman();
+		loop();
+	}
+
+	resetLevel() {
+		this.resetGhosts();
+		this.resetPacmanPosition();
+		loop();
+	}
+
+	nextLevel() {
+		this.level++;
+		this.ghosts = [];
+		this.resetStage();
+		this.resetPacmanPosition();
+		loop();
 	}
 
 	showStats(x, y) {
@@ -55,5 +83,7 @@ class Game {
 		noStroke();
 		text('Points: ' + this.pacman.points, x, y);
 		text('Lives: ' + this.pacman.lives, x, y + 20)
+		text('Level: ' + this.level, x, y + 40)
+
 	}
 }
