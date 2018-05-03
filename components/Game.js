@@ -84,4 +84,49 @@ class Game {
 		text('Lives: ' + this.pacman.lives, x, y + 20);
 		text('Level: ' + this.level, x, y + 40);
 	}
+
+	checkPower() {
+		if(this.pacman.hasPower && !this.pacman.powerUsed) {
+			if(this.powerTimeout) clearTimeout(this.powerTimeout);
+
+			this.pacman.powerUsed = true;
+			this.pacman.powerUp();
+
+			this.powerTimeout = setTimeout(() => {
+				this.pacman.hasPower = false;
+				this.pacman.powerUsed = false;
+				this.pacman.powerDown();
+				this.ghosts.forEach(ghost => ghost.normal());
+				clearTimeout(this.powerTimeout);
+			}, 10000);
+
+			this.ghosts.forEach(ghost => ghost.flee());
+		}
+	}
+
+	checkCollision(ghost) {
+		if(ghost.catch(this.pacman)) {
+			if(ghost.isFleeing) {
+				this.pacman.points += 20;
+				this.resetUnit(ghost);
+				ghost.normal();
+			} else {
+				if(this.pacman.lives-- == 0) {
+					this.stop('Game over.');
+					this.resetGame();
+				} else {
+					this.stop('You died.');
+					this.resetLevel();
+				}
+			}
+		}
+	}
+	
+	checkCompleted() {
+		if(this.isCompleted) {
+			this.stop('Completed.');
+			this.nextLevel();
+		}
+	}
+	
 }
