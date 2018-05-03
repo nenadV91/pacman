@@ -1,6 +1,7 @@
 # pacman
 Pacman game with HTML Canvas element and p5.js.
-[Play the game!](https://nenadv91.github.io/pacman/)
+
+[**Play the game!**](https://nenadv91.github.io/pacman/)
 
 Stage markup:
 
