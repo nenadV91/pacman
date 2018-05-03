@@ -5,8 +5,8 @@ Pacman game with HTML Canvas element and p5.js.
 
 Stage markup:
 
-    -	Coin
-    +	Brick
-    *	Empty cell
-    G	Ghost unit
-    P	Power up
+    -  Coin
+    +  Brick
+    *  Empty cell
+    G  Ghost unit
+    P  Power up
