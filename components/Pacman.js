@@ -6,6 +6,7 @@ class Pacman extends Entity {
 		this.lives = 3;
 		this.hasPower = false;
 		this.powerUsed = false;
+		this.isPacman = true;
 
 		this.normalSize = this.size;
 		this.normalSpeed = this.speed;
@@ -28,7 +29,6 @@ class Pacman extends Entity {
 			if(cell.type == 'coin') {
 				this.points++;
 				this.grid.coins--;
-				
 			}
 
 			if(cell.type == 'power') {

@@ -51,6 +51,7 @@ class Entity {
 		const cell = this.grid.grid[index];
 		
 		if(!cell || cell.type == 'brick') return false;
+		else if(this.isPacman && cell.type == 'door') return false;
 		else return {column, row, index, cell}
 	}
 

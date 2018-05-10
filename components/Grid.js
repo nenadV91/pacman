@@ -57,6 +57,11 @@ class Grid {
 					this.opens.push(goThrough)
 					this.grid.push(goThrough)
 				}
+
+				if(value == 'D') {
+					const door = new Door(x, y, i, j, 'door', this.cellSize);
+					this.grid.push(door);
+				}
 			}
 		}
 	}
