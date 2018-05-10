@@ -9,4 +9,8 @@ Stage markup:
     +  Brick
     *  Empty cell
     G  Ghost unit
+<<<<<<< HEAD
     P  Power up
+=======
+    P  Power up
+>>>>>>> 90d7000599374423b01b2e14527399ff4b4f17d2
