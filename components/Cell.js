@@ -16,10 +16,12 @@ class Cell {
 	showBorders() {
 		noFill()
 		rectMode(RADIUS)
-		stroke(color(255, 255, 255, 5));
+		stroke(color(255, 255, 255, 2));
 		rect(this.x, this.y, this.size, this.size)
 	}
 
-	show() {}
+	show() {
+		this.showBorders()
+	}
 }
 

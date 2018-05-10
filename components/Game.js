@@ -12,6 +12,14 @@ class Game {
 		return this.stage.completed;
 	}
 
+	get pause() {
+		noLoop();
+	}
+
+	get resume() {
+		loop();
+	}
+
 	addStage() {
 		this.stage = new Grid(this.config);
 		this.stage.init(this);

@@ -9,6 +9,7 @@ class Grid {
 		this.grid = [];
 		this.coins = 0;
 		this.bricks = 0;
+		this.opens = [];
 	}
 
 	get completed() {
@@ -49,6 +50,12 @@ class Grid {
 					const power = new Power(x, y, i, j, 'power', this.cellSize);
 					this.powers++;
 					this.grid.push(power);
+				}
+
+				if(value == '=') {
+					const goThrough = new GoThrough(x, y, i, j, 'goThrough', this.cellSize);
+					this.opens.push(goThrough)
+					this.grid.push(goThrough)
 				}
 			}
 		}

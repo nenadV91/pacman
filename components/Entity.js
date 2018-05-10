@@ -30,6 +30,14 @@ class Entity {
 		return row * this.grid.columns + column;
 	}
 
+	setPosition(cell) {
+		this.row = cell.row;
+		this.column = cell.column;
+		this.x = cell.center.x;
+		this.y = cell.center.y;
+		this.position = new p5.Vector(cell.center.x, cell.center.y);
+	}
+
 	checkDirection(direction) {
 		let row = this.row;
 		let column = this.column;

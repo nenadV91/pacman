@@ -35,6 +35,20 @@ class Pacman extends Entity {
 				this.hasPower = true;
 				this.powerUsed = false;
 			}
+
+			if(cell.type == 'goThrough') {
+				cell.isVisited = false;
+
+				const next = this.grid.opens.find(({row, column}) => {
+					return row == cell.row && column != cell.column;
+				});
+
+				if(next) {
+					this.setPosition(next);
+					this.target = null;
+					this.velocity.mult(0)
+				}
+			}
 		}
 	}
 
@@ -44,7 +58,6 @@ class Pacman extends Entity {
 	}
 
 	powerDown() {
-		console.log(this.size)
 		this.speed = this.normalSpeed;
 		this.size = this.normalSize;
 	}
@@ -55,8 +68,10 @@ class Pacman extends Entity {
 			
 			if(desired.mag() <= 1) {
 				this.eat(this.target);
-				this.column = this.target.column;
-				this.row = this.target.row;
+				if(this.target) {
+					this.column = this.target.column;
+					this.row = this.target.row;
+				}
 				this.isMoving = false;
 				return;
 			}

@@ -6,7 +6,7 @@ class Coin extends Cell {
 
 	show() {
 		noStroke();
-		this.showBorders()
+		this.showBorders();
 
 		if(!this.isVisited) {
 			fill('#E9E9E9');

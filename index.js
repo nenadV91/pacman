@@ -32,17 +32,13 @@ function draw() {
 	game.stage.show();
 	game.showStats(560, 20);
 
-	if(game.isCompleted) {
-		game.stop('Completed.');
-		game.nextLevel();
-	}
-
 	game.pacman.show();
 	game.pacman.update()
 	game.pacman.move();
 
 	game.checkPower();
-
+	game.checkCompleted();
+	
 	game.ghosts.forEach(ghost => {
 		ghost.show();
 		ghost.update();
